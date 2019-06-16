@@ -1,3 +1,7 @@
+/**
+ * Based on code from https://github.com/Cyunrei/Video-Live-Wallpaper
+ */
+
 package com.example.kijanu;
 
 import android.app.WallpaperManager;
@@ -24,7 +28,6 @@ public class VideoLiveWallpaper extends WallpaperService {
         final Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
         intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
                 new ComponentName(context, VideoLiveWallpaper.class));
-        Log.w(TAG, "startActivity" + intent.toString());
         context.startActivity(intent);
     }
 
@@ -32,13 +35,11 @@ public class VideoLiveWallpaper extends WallpaperService {
         VideoEngine() {
             Log.w(TAG, "VideoEngine");
         }
-
         private MediaPlayer mMediaPlayer;
-        private VideoSurfaceView mView;
 
         @Override
         public void onVisibilityChanged(boolean visible) {
-            Log.w(TAG, "onVisibilityChanged visible:" + visible);
+//            Log.w(TAG, "onVisibilityChanged visible:" + visible);
             if (visible) {
                 mMediaPlayer.start();
             } else {
@@ -49,7 +50,7 @@ public class VideoLiveWallpaper extends WallpaperService {
 
         @Override
         public void onSurfaceCreated(SurfaceHolder holder) {
-            Log.w(TAG, "onSurfaceCreated" + holder.toString());
+//            Log.w(TAG, "onSurfaceCreated" + holder.toString());
             super.onSurfaceCreated(holder);
 
             mMediaPlayer = new MediaPlayer();
@@ -57,7 +58,7 @@ public class VideoLiveWallpaper extends WallpaperService {
             mMediaPlayer.setSurface(holder.getSurface());
             try {
                 Uri introURI = Uri.parse("android.resource://com.example.kijanu/" + R.raw.kijanu);
-                Log.w(TAG, "introURI" + introURI.toString());
+//                Log.w(TAG, "introURI" + introURI.toString());
                 mMediaPlayer.setDataSource(VideoLiveWallpaper.this, introURI);
                 mMediaPlayer.setLooping(false);
                 mMediaPlayer.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
@@ -67,7 +68,6 @@ public class VideoLiveWallpaper extends WallpaperService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }
